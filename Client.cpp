@@ -7,7 +7,7 @@
 const short PORT = 9000;
 const int BUFSIZE = 512;
 
-// ¿À·ù ½Ã Ãâ·Â, Á¾·á O
+// ì˜¤ë¥˜ ì‹œ ì¶œë ¥, ì¢…ë£Œ O
 void err_quit(const char* msg) {
 	LPVOID lpMsgBuf;
 	FormatMessageA(
@@ -19,7 +19,7 @@ void err_quit(const char* msg) {
 	LocalFree(lpMsgBuf);
 	exit(1);
 }
-// ¿À·ù ½Ã Ãâ·Â, Á¾·á X
+// ì˜¤ë¥˜ ì‹œ ì¶œë ¥, ì¢…ë£Œ X
 void err_display(const char* msg) {
 	LPVOID lpMsgBuf;
 	FormatMessageA(
@@ -57,15 +57,15 @@ void recv_Thread(SOCKET server_sock) {
 int main() {
 	int ret; char ID[BUFSIZE];
 	
-	std::cout << "ID ÀÔ·Â : ";
+	std::cout << "ID ï¿½Ô·ï¿½ : ";
 	if (fgets(ID, BUFSIZE + 1, stdin) == NULL) return 0;
 	int ID_len = (int)strlen(ID);
 
-	// À©¼Ó ÃÊ±âÈ­
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 	WSADATA wsa;
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) return 1;
 
-	// ¼ÒÄÏ »ý¼º
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	SOCKET server_sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (server_sock == INVALID_SOCKET) err_quit("socket()");
 
@@ -73,8 +73,8 @@ int main() {
 	sockaddr_in server_addr;
 	memset(&server_addr, 0, sizeof(server_addr));
 	server_addr.sin_family = AF_INET; // IPv4
-	inet_pton(AF_INET, "10.21.20.36", &server_addr.sin_addr); // ÁÖ¼Ò º¯È¯ ÈÄ »ðÀÔ
-	server_addr.sin_port = htons(PORT); // ¹ÙÀÌÆ® Á¤·Ä º¯È¯
+	inet_pton(AF_INET, "10.21.20.36", &server_addr.sin_addr); // ï¿½Ö¼ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	server_addr.sin_port = htons(PORT); // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 	ret = connect(server_sock, (sockaddr*)&server_addr, sizeof(server_addr));
 	if (ret == SOCKET_ERROR) err_quit("connect()");
 
